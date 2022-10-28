@@ -7,3 +7,9 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+img {
+  margin-left: 40px;
+  height: 300px;
+  width: 450px;
+}
