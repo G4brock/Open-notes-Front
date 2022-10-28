@@ -7,7 +7,7 @@ import { Layout, Menu, Divider, Form, Input, Button, InputNumber, Card } from 'a
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 
 const { Content, Sider } = Layout;
@@ -27,6 +27,7 @@ const items = [
   ];
 
 function EditNote(){
+    const navigate = useNavigate();
     const {register, reset, handleSubmit, formState: {
       isSubmitSuccessful
     } } = useForm();
@@ -34,17 +35,20 @@ function EditNote(){
     const { id } = useParams()
 
     useEffect(()=>{
-      axios.get(`http://127.0.0.1:5000/${id}`)
+      axios.get(`http://api:8000/notes/${id}/`)
       .then((response) => {
         reset(response.data)
       })
     }, [])
-    const add = data => axios.putForm(`http://127.0.0.1:5000/${id}`, data)
+    const add = data => axios.putForm(`http://api:8000/notes/${id}/`, data)
+    .then(() => {
+        navigate("/")
+    })
     const onFinished = (values) => {
         const formData = new FormData();
         formData.append("title", values.title)
         formData.append("content", values.content)
-        axios.postForm("http://127.0.0.1:5000/insertDoc", formData)
+        axios.postForm("http://api:8000/notes/}", formData)
         .then(()=>{
             console.log("Sucesso")
         })

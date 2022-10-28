@@ -19,7 +19,7 @@ function NoteCards(props){
                                     <Link to={`/edit/${note.id}`}>
                                         <EditOutlined key="ellipsis" />
                                     </Link>,
-                                    <Link onClick={() => {axios.delete(`http://127.0.0.1:5000/${note.id}`)}} reloadDocument>
+                                    <Link onClick={() => {axios.delete(`http://api:8000/notes/${note.id}/`)}} reloadDocument>
                                         <DeleteOutlined key='dell'/>
                                     </Link>
                                   ]}

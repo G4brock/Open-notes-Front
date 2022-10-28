@@ -27,7 +27,7 @@ function Home(){
   const [collapsed, setCollapsed] = useState(false);
   const [notes, setNotes] = useState([]);
   useState(() => {
-    axios.get('http://127.0.0.1:5000')
+    axios.get('http://api:8000/notes')
     .then((response)=>{
       setNotes(response.data)
     })

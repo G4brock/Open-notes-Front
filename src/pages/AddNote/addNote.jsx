@@ -7,8 +7,7 @@ import { Layout, Menu, Divider, Form, Input, Button, InputNumber, Card } from 'a
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Content, Sider } = Layout;
 
@@ -27,10 +26,11 @@ const items = [
   ];
 
 const finished = (values) => {
-    axios.postForm("http://127.0.0.1:5000/insertDoc", values)
+    axios.postForm("http://api:8000/notes/", values)
     
 }
 function AddNote(){
+    const navigate = useNavigate();
     const {register, handleSubmit } = useForm();
      const [collapsed, setCollapsed] = useState(false);
   
@@ -38,9 +38,10 @@ function AddNote(){
         const formData = new FormData();
         formData.append("title", values.title)
         formData.append("content", values.content)
-        axios.postForm("http://127.0.0.1:5000/insertDoc", formData)
+        axios.postForm("http://api:8000/notes/", formData)
         .then(()=>{
             console.log("Sucesso")
+            navigate(`/`);
         })
     }
   return (
